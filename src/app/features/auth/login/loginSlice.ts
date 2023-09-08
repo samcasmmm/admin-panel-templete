@@ -1,20 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { LoginState } from '../../../types.redux';
+import Cookies from 'js-cookie';
 
 const userDetailFromLocalStorage = localStorage.getItem('userDetail');
-const isLoggedInFromLocalStorage = localStorage.getItem('isLoggedIn');
-const tokenFromLocalStorage = localStorage.getItem('token');
+const isLoggedInFromCookie = Cookies.get('isLoggedIn');
+const tokenFromCookie = Cookies.get('token');
 
 const parsedUserDetail = userDetailFromLocalStorage
   ? JSON.parse(userDetailFromLocalStorage)
   : null;
 
-const parsedIsLoggedIn = isLoggedInFromLocalStorage
-  ? JSON.parse(isLoggedInFromLocalStorage)
+const parsedIsLoggedIn = isLoggedInFromCookie
+  ? JSON.parse(isLoggedInFromCookie)
   : null;
-const parsedToken = tokenFromLocalStorage
-  ? JSON.parse(tokenFromLocalStorage)
-  : null;
+const parsedToken = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
 const initialState: LoginState = {
   user: parsedUserDetail,
@@ -33,11 +32,10 @@ const loginSlice = createSlice({
       state.token = action.payload.token;
 
       localStorage.setItem('userDetail', JSON.stringify(action.payload.user));
-      localStorage.setItem(
-        'isLoggedIn',
-        JSON.stringify(action.payload.isloggedIn),
-      );
-      localStorage.setItem('token', JSON.stringify(action.payload.token));
+      Cookies.set('isLoggedIn', JSON.stringify(action.payload.isloggedIn));
+      Cookies.set('token', JSON.stringify(action.payload.token), {
+        expires: 2,
+      });
     },
     logout: (state) => {
       state.user = null;
@@ -46,8 +44,8 @@ const loginSlice = createSlice({
       state.error = null;
 
       localStorage.removeItem('userDetail');
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('token');
+      Cookies.remove('isLoggedIn');
+      Cookies.remove('token');
     },
   },
 });

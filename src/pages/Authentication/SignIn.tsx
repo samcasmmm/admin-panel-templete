@@ -30,22 +30,18 @@ interface SendOTPMutationResponse {
   error?: {};
 }
 
-interface IComponentProps {
-  isLoggedIn: boolean | null;
-}
-
-const SignIn: React.FC<IComponentProps> = ({ isLoggedIn }) => {
+const SignIn = () => {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [userInputData, setUserInputData] = useState<IOTPInput>({
-    username: '',
-    password: '',
+    username: '9987677806',
+    password: '000000',
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userDetails = useSelector(selectUser);
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const [sendOTPMutation] = useSendOTPMutation();
   const [verifyOTPMutation] = useVerifyOTPMutation();
@@ -95,8 +91,8 @@ const SignIn: React.FC<IComponentProps> = ({ isLoggedIn }) => {
               error: null,
             }),
           );
-          navigate('/');
           setShowOTPInput(false);
+          navigate('/');
         }
       })
       .catch((error: SendOTPMutationResponse) => {

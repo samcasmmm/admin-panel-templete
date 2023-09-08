@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
-    if (!isLoggedIn) {
+    if (isLoggedIn === false) {
       navigate('/auth/signin');
     }
   }, [isLoggedIn]);
