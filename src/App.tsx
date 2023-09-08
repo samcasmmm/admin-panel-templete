@@ -21,10 +21,10 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
-    if (isLoggedIn === false) {
+    if (!isLoggedIn) {
       navigate('/auth/signin');
     }
-  }, [isLoggedIn]);
+  }, []);
 
   return loading ? (
     <Loader />
@@ -37,10 +37,7 @@ function App() {
       />
 
       <Routes>
-        <Route
-          path="/auth/signin"
-          element={<SignIn isLoggedIn={isLoggedIn} />}
-        />
+        <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
         <Route element={<DefaultLayout />}>
           <Route index element={<ECommerce isLoggedIn={isLoggedIn} />} />
