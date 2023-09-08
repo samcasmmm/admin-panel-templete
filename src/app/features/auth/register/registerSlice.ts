@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RegisterState, User } from '../../../types.redux';
 
-const initialState = {
+const initialState: RegisterState = {
   user: null,
   isLoggedIn: null,
   token: null,
@@ -17,7 +18,8 @@ const registerSlice = createSlice({
   },
 });
 
-export const selectUser = (state) => state.login.user;
+export const selectUser = (state: { register: RegisterState }) =>
+  state.register.user;
 
-const { addUser } = loginSlice.actions;
-export default loginSlice.reducer;
+const { addUser } = registerSlice.actions;
+export default registerSlice.reducer;

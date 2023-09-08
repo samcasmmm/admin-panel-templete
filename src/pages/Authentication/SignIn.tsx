@@ -1,8 +1,119 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-const SignIn = () => {
-  const [changeButtonFunction, setChangeButtonFunction] = useState(false);
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useSendOTPMutation,
+  useVerifyOTPMutation,
+} from '../../app/features/auth/login/login.api';
+import {
+  setUserDetails,
+  selectUser,
+  selectIsLoggedIn,
+  selectToken,
+} from '../../app/features/auth/login/loginSlice';
+
+interface IOTPInput {
+  username: string;
+  password: string;
+}
+
+interface SendOTPMutationResponse {
+  data?: {
+    data: string | undefined;
+    message: string | undefined;
+    meta: string | undefined;
+    status: number | undefined;
+  };
+  error?: {};
+}
+
+interface IComponentProps {
+  isLoggedIn: boolean | null;
+}
+
+const SignIn: React.FC<IComponentProps> = ({ isLoggedIn }) => {
+  const [showOTPInput, setShowOTPInput] = useState(false);
+  const [userInputData, setUserInputData] = useState<IOTPInput>({
+    username: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userDetails = useSelector(selectUser);
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const [sendOTPMutation] = useSendOTPMutation();
+  const [verifyOTPMutation] = useVerifyOTPMutation();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      console.log(isLoggedIn);
+      navigate('/');
+    }
+  }, [isLoggedIn]);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInputData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const sendOTP = async () => {
+    await sendOTPMutation({ phone: userInputData.username })
+      .then((res: SendOTPMutationResponse) => {
+        if (res.data?.status === 200) {
+          toast.success('OTP sent');
+          setShowOTPInput(true);
+        }
+      })
+      .catch((error: SendOTPMutationResponse) => {
+        toast.error('OTP not sent');
+        console.log(error);
+      });
+  };
+
+  const verifyOTP = async () => {
+    await verifyOTPMutation({
+      username: userInputData.username,
+      password: userInputData.password,
+    })
+      .then(async (res: SendOTPMutationResponse) => {
+        if (res.data?.status === 200) {
+          toast.success('OTP Verified');
+          dispatch(
+            setUserDetails({
+              user: res.data.data,
+              token: res.data.message,
+              isloggedIn: true,
+              error: null,
+            }),
+          );
+          navigate('/');
+          setShowOTPInput(false);
+        }
+      })
+      .catch((error: SendOTPMutationResponse) => {
+        toast.error('Try Again');
+        console.log(error);
+      });
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!showOTPInput) {
+      sendOTP();
+    } else {
+      verifyOTP();
+    }
+  };
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdar ">
@@ -23,6 +134,9 @@ const SignIn = () => {
                     <input
                       type="number"
                       placeholder="Enter your number"
+                      name="username"
+                      value={userInputData.username}
+                      onChange={handleOnChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -45,7 +159,7 @@ const SignIn = () => {
                     </span>
                   </div>
                 </div>
-                {changeButtonFunction && (
+                {showOTPInput && (
                   <div className="mb-6">
                     <label className="mb-2.5 block font-medium text-black dark:text-white">
                       Enter OTP
@@ -54,6 +168,9 @@ const SignIn = () => {
                       <input
                         type="password"
                         placeholder="OTP"
+                        name="password"
+                        value={userInputData.password}
+                        onChange={handleOnChange}
                         className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                       />
 
@@ -83,14 +200,13 @@ const SignIn = () => {
                 )}
 
                 <div className="mb-5">
-                  <input
+                  <button
                     type="button"
-                    value={changeButtonFunction ? 'Sign Up' : 'Send OTP'}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                    onClick={() => {
-                      setChangeButtonFunction(!changeButtonFunction);
-                    }}
-                  />
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    {showOTPInput ? 'Sign Up' : 'Send OTP'}
+                  </button>
                 </div>
                 <div className="mt-6 text-center">
                   <p>
