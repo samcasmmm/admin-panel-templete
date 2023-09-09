@@ -1,9 +1,13 @@
-import React from 'react';
+import Breadcrumb from '../../components/Breadcrumb';
 
-type Props = {};
+// type Props = {};
 
-const AllLeads = (props: Props) => {
-  return <div>AllLeads</div>;
+const AllLeads = () => {
+  return (
+    <>
+      <Breadcrumb altPageName="Manage Leads" pageName="All Leads" />
+    </>
+  );
 };
 
 export default AllLeads;

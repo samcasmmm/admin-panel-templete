@@ -12,12 +12,18 @@ const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const VisitedEmployee = lazy(
   () => import('../pages/Dashboard/VisitedEmployee'),
 );
+const AllLeads = lazy(() => import('../pages/Leads/AllLeads'));
 
 const coreRoutes = [
   {
-    path: 'visited-employee',
+    path: '/visited-employee',
     title: 'Visited Employee',
     component: VisitedEmployee,
+  },
+  {
+    path: '/leads/all',
+    title: 'Leads',
+    component: AllLeads,
   },
   {
     path: '/calendar',
