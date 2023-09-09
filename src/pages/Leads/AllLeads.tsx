@@ -6,7 +6,7 @@ import LeadCard from '../../components/LeadCard';
 const sampleData = [
   {
     name: 'John Doe',
-    status: 'Active',
+    status: 'new',
     broker: 'Broker A',
     leadAssigned: 'Lead A',
     propertyName: 'Property X',
@@ -18,7 +18,7 @@ const sampleData = [
   },
   {
     name: 'Jane Smith',
-    status: 'Inactive',
+    status: 'new',
     broker: 'Broker B',
     leadAssigned: 'Lead B',
     propertyName: 'Property Y',

@@ -20,12 +20,16 @@ const LeadCard: React.FC<Props> = ({
   action,
 }) => {
   return (
-    <div>
-      <p>
-        {name} <span>{status}</span>
+    <div className="w-full my-4 bg-white dark:bg-boxdark p-4 rounded-lg">
+      <p className="dark:text-white font-bold text-primary hover:text-blue-800">
+        {name}
+        <span className="bg-warning/20 px-2 py-1 rounded-full font-bold text-[12px] text-warning ml-2">
+          {status}
+        </span>
       </p>
       <p>
-        Broker : <span>{broker}</span>
+        Broker :{' '}
+        <span className="font-bold bg-white dark:bg-boxdark">{broker}</span>
       </p>
       <p>
         Lead assigned to : <span>{leadAssigned}</span>
