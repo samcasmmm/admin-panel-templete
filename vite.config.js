@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
+    proxy: { '/v2': 'http://test.hookfish.co.in' },
     port: 3001,
     host: true,
   },

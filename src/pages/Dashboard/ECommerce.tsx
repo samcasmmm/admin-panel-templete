@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-import { selectIsLoggedIn } from '../../app/features/auth/login/loginSlice.ts';
+import { useEffect } from 'react';
 
 import CardFour from '../../components/CardFour.tsx';
 import CardOne from '../../components/CardOne.tsx';

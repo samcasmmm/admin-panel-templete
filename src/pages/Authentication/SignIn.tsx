@@ -10,9 +10,7 @@ import {
 } from '../../app/features/auth/login/login.api';
 import {
   setUserDetails,
-  selectUser,
   selectIsLoggedIn,
-  selectToken,
 } from '../../app/features/auth/login/loginSlice';
 
 interface IOTPInput {
@@ -40,7 +38,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userDetails = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const [sendOTPMutation] = useSendOTPMutation();

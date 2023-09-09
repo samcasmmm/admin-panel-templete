@@ -9,8 +9,16 @@ const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
+const VisitedEmployee = lazy(
+  () => import('../pages/Dashboard/VisitedEmployee'),
+);
 
 const coreRoutes = [
+  {
+    path: 'visited-employee',
+    title: 'Visited Employee',
+    component: VisitedEmployee,
+  },
   {
     path: '/calendar',
     title: 'Calender',
