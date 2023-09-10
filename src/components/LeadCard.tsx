@@ -21,7 +21,7 @@ const LeadCard: React.FC<Props> = ({
 }) => {
   return (
     <div className="w-full my-4 bg-white dark:bg-boxdark p-4 rounded-lg">
-      <p className="dark:text-white font-bold text-primary hover:text-blue-800">
+      <p className="dark:text-primary dark:hover:text-blue-800 font-bold text-primary hover:text-blue-800 cursor-pointer">
         {name}
         <span className="bg-warning/20 px-2 py-1 rounded-full font-bold text-[12px] text-warning ml-2">
           {status}
