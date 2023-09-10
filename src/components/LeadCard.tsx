@@ -42,7 +42,7 @@ const LeadCard: React.FC<Props> = ({
         className={`px-6 py-2 w-35 rounded-md text-white flex items-center justify-center
         ${
           actionLabel === null &&
-          'bg-slate-100 dark:bg-black dark:text-white border-1'
+          'bg-slate-100 text-slate-700/50 dark:bg-black dark:text-white border-slate-300 border-[1px]'
         }
         ${actionLabel === 'approved' && 'bg-success dark:text-white'}
         ${actionLabel === 'reject' && 'bg-red-500 dark:text-white'}
