@@ -10,7 +10,7 @@ const sampleData = [
     broker: 'Broker A',
     leadAssigned: 'Lead A',
     propertyName: 'Property X',
-    actionLabel: 'Edit',
+    actionLabel: 'reject',
     action: () => {
       // Implement your action logic here
       console.log('Edit clicked');
@@ -22,7 +22,7 @@ const sampleData = [
     broker: 'Broker B',
     leadAssigned: 'Lead B',
     propertyName: 'Property Y',
-    actionLabel: 'Delete',
+    actionLabel: 'requested',
     action: () => {
       // Implement your action logic here
       console.log('Delete clicked');
