@@ -30,7 +30,9 @@ const LeadCard: React.FC<Props> = ({
       </p>
       <p>
         Broker :{' '}
-        <span className="font-bold bg-white dark:bg-boxdark">{broker}</span>
+        <span className="font-bold bg-white dark:bg-boxdark">
+          {broker || 'Null'}
+        </span>
       </p>
       <p>
         Lead assigned to<span className="ml-2 font-bold">{leadAssigned}</span>
@@ -42,7 +44,7 @@ const LeadCard: React.FC<Props> = ({
         className={`px-6 py-2 w-35 rounded-md text-white flex items-center justify-center
         ${
           actionLabel === null &&
-          'bg-slate-100 text-slate-700/50 dark:bg-black dark:text-white border-slate-300 border-[1px]'
+          'bg-slate-100 text-slate-700/50 dark:bg-black dark:text-white border-slate-200 border-[1px]'
         }
         ${actionLabel === 'approved' && 'bg-success dark:text-white'}
         ${actionLabel === 'reject' && 'bg-red-500 dark:text-white'}

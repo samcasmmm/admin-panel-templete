@@ -44,7 +44,7 @@ interface Lead {
 
 const AllLeads = () => {
   const [leadsData, setLeadsData] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState({
@@ -52,13 +52,15 @@ const AllLeads = () => {
     next: false,
   });
 
-  let LEADS_URL = `/v2/admin/get/leads?type=all&property_id=&employee_id=&start_date=&end_date=&source=&bhk_type_id&keyword=&pageNo=${pageNo}&pageSize=20&sortBy=id&sortDir=desc`;
+  let LEADS_URL = `/v2/admin/get/leads?type=&property_id=&employee_id=&start_date=&end_date=&source=&bhk_type_id&keyword=&pageNo=${pageNo}&pageSize=20&sortBy=id&sortDir=desc`;
+
+  let lead_url1 = `/v2/admin/get/leads?type=all&pageNo=${pageNo}&pageSize=100`;
 
   useEffect(() => {
     const getLeadData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(LEADS_URL, {
+        const response = await axios.get(lead_url1, {
           headers: {
             Authorization: `Bearer ${Cookies.get('bearer_token')}`,
           },
@@ -78,6 +80,13 @@ const AllLeads = () => {
     <>
       <Breadcrumb altPageName="Manage Leads" pageName="All Leads" />
       <div className="">
+        <button
+          onClick={() => {
+            setPageNo(pageNo + 1);
+          }}
+        >
+          click
+        </button>
         {leadsData?.map((lead: Lead, index: number) => (
           <LeadCard
             name={lead.name}
