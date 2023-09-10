@@ -35,20 +35,24 @@ const LeadCard: React.FC<Props> = ({
       <p>
         Lead assigned to<span className="ml-2 font-bold">{leadAssigned}</span>
       </p>
-      <p className="px-4 py-2 bg-purple-300/20 bg-boxdark-2 w-35 text-center rounded-full text dark:text-white text-black font-bold text-sm">
+      <p className="px-4 py-2 bg-purple-300/20 bg-boxdark-2 w-max text-center rounded-full text dark:text-white text-black font-bold text-sm">
         {propertyName}
       </p>
       <button
         className={`px-6 py-2 w-35 rounded-md text-white flex items-center justify-center
+        ${
+          actionLabel === null &&
+          'bg-slate-100 dark:bg-black dark:text-white border-1'
+        }
+        ${actionLabel === 'approved' && 'bg-success dark:text-white'}
         ${actionLabel === 'reject' && 'bg-red-500 dark:text-white'}
         ${actionLabel === 'requested' && 'bg-warning dark:text-white'}
         ${actionLabel === 'No activity' && 'bg-warning dark:text-white'}
-        ${actionLabel === 'approved' && 'bg-success dark:text-white'}
         `}
         onClick={() => action}
       >
         <FaRupeeSign />
-        {actionLabel}
+        {actionLabel ? actionLabel : 'Null'}
       </button>
     </div>
   );
