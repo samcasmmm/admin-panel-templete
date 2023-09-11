@@ -37,7 +37,7 @@ const AllLeads = () => {
           },
         });
         console.log(response.data);
-        setLeadsData(response.data.data);
+        // setLeadsData(response.data.data);
         setTotalPages(response.data.data.length);
       } catch (error) {
         // toast.error('Failed to Fetch Leads');
@@ -58,7 +58,7 @@ const AllLeads = () => {
         >
           click
         </button>
-        {leadsData ? (
+        {leadsData.length > 0 ? (
           leadsData?.map((lead: Lead, index: number) => (
             <LeadCard
               name={lead.name}
@@ -71,7 +71,9 @@ const AllLeads = () => {
             />
           ))
         ) : (
-          <div></div>
+          <div className="flex items-center justify-center md:min-h-[600px] min-h-[400px]">
+            <p>No Data Availble</p>
+          </div>
         )}
       </div>
     </>
