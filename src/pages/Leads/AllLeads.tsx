@@ -3,41 +3,12 @@ import Breadcrumb from '../../components/Breadcrumb';
 import LeadCard from '../../components/LeadCard';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-// type Props = {};
-
-const sampleData = [
-  {
-    name: 'John Doe',
-    status: 'new',
-    broker: 'Broker A',
-    leadAssigned: 'Lead A',
-    propertyName: 'Property X',
-    actionLabel: 'reject',
-    action: () => {
-      // Implement your action logic here
-      console.log('Edit clicked');
-    },
-  },
-  {
-    name: 'Jane Smith',
-    status: 'new',
-    broker: 'Broker B',
-    leadAssigned: 'Lead B',
-    propertyName: 'Property Y',
-    actionLabel: 'requested',
-    action: () => {
-      // Implement your action logic here
-      console.log('Delete clicked');
-    },
-  },
-  // Add more objects as needed
-];
 
 interface Lead {
   name: string;
   status: string;
   broker: string;
-  leadAssigned: string;
+  property_name: string;
   working_employee: string;
   rewardStatus: string;
 }
@@ -47,10 +18,10 @@ const AllLeads = () => {
   const [pageNo, setPageNo] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState({
-    prev: false,
-    next: false,
-  });
+  // const [disabled, setDisabled] = useState({
+  //   prev: false,
+  //   next: false,
+  // });
 
   let LEADS_URL = `/v2/admin/get/leads?type=&property_id=&employee_id=&start_date=&end_date=&source=&bhk_type_id&keyword=&pageNo=${pageNo}&pageSize=20&sortBy=id&sortDir=desc`;
 
@@ -60,9 +31,9 @@ const AllLeads = () => {
     const getLeadData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(lead_url1, {
+        const response = await axios.get(LEADS_URL, {
           headers: {
-            Authorization: `Bearer ${Cookies.get('bearer_token')}`,
+            // Authorization: `Bearer ${Cookies.get('bearer_token')}`,
           },
         });
         console.log(response.data);
@@ -87,17 +58,21 @@ const AllLeads = () => {
         >
           click
         </button>
-        {leadsData?.map((lead: Lead, index: number) => (
-          <LeadCard
-            name={lead.name}
-            status={lead.status}
-            broker={lead.broker}
-            leadAssigned={lead.leadAssigned}
-            propertyName={lead.working_employee}
-            actionLabel={lead.rewardStatus}
-            key={index}
-          />
-        ))}
+        {leadsData ? (
+          leadsData?.map((lead: Lead, index: number) => (
+            <LeadCard
+              name={lead.name}
+              status={lead.status}
+              broker={lead.broker}
+              leadAssigned={lead.working_employee}
+              propertyName={lead.property_name}
+              actionLabel={lead.rewardStatus}
+              key={index}
+            />
+          ))
+        ) : (
+          <div></div>
+        )}
       </div>
     </>
   );

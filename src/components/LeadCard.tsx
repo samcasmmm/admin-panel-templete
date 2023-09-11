@@ -41,15 +41,20 @@ const LeadCard: React.FC<Props> = ({
         {propertyName}
       </p>
       <button
-        className={`px-6 py-2 w-35 rounded-md text-white flex items-center justify-center
+        className={`px-6 py-2 w-35 rounded-md text-black flex items-center justify-center
         ${
           actionLabel === null &&
-          'bg-slate-100 text-slate-700/50 dark:bg-black dark:text-white border-slate-200 border-[1px]'
+          'bg-slate-100 text-slate-700/50 dark:bg-black dark:text-white '
         }
-        ${actionLabel === 'approved' && 'bg-success dark:text-white'}
-        ${actionLabel === 'reject' && 'bg-red-500 dark:text-white'}
-        ${actionLabel === 'requested' && 'bg-warning dark:text-white'}
-        ${actionLabel === 'No activity' && 'bg-warning dark:text-white'}
+        ${actionLabel === 'approved' && 'bg-success dark:text-white text-white'}
+        ${actionLabel === 'rejected' && 'bg-red-500 dark:text-white text-white'}
+        ${
+          actionLabel === 'requested' && 'bg-warning dark:text-white text-white'
+        }
+        ${
+          actionLabel === 'No activity' &&
+          'bg-warning dark:text-white text-white'
+        }
         `}
         onClick={() => action}
       >
