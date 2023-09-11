@@ -37,7 +37,7 @@ const AllLeads = () => {
           },
         });
         console.log(response.data);
-        // setLeadsData(response.data.data);
+        setLeadsData(response.data.data);
         setTotalPages(response.data.data.length);
       } catch (error) {
         // toast.error('Failed to Fetch Leads');
