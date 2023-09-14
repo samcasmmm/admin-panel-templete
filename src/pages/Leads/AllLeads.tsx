@@ -18,6 +18,7 @@ const AllLeads = () => {
   // let lead_url1 = `/v2/admin/get/leads?type=all&pageNo=${pageNo}&pageSize=100`;
 
   const { data: leadsData, isLoading, isFetching } = useGetAllLeadQuery({});
+  // console.log(leadsData);
 
   return (
     <>
