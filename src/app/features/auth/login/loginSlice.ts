@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 const userDetailFromLocalStorage = localStorage.getItem('userDetail');
 const isLoggedInFromCookie = Cookies.get('isLoggedIn');
-const tokenFromCookie = Cookies.get('bearer_token');
+const tokenFromCookie = Cookies.get('token');
 
 const parsedUserDetail = userDetailFromLocalStorage
   ? JSON.parse(userDetailFromLocalStorage)
@@ -13,7 +13,7 @@ const parsedUserDetail = userDetailFromLocalStorage
 const parsedIsLoggedIn = isLoggedInFromCookie
   ? JSON.parse(isLoggedInFromCookie)
   : null;
-const parsedToken = tokenFromCookie ? tokenFromCookie : null;
+const parsedToken = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
 
 const initialState: LoginState = {
   user: parsedUserDetail,
@@ -33,7 +33,9 @@ const loginSlice = createSlice({
 
       localStorage.setItem('userDetail', JSON.stringify(action.payload.user));
       Cookies.set('isLoggedIn', JSON.stringify(action.payload.isloggedIn));
-      Cookies.set('bearer_token', action.payload.token);
+      Cookies.set('token', JSON.stringify(action.payload.token), {
+        expires: 2,
+      });
     },
     logout: (state) => {
       state.user = null;
@@ -48,9 +50,10 @@ const loginSlice = createSlice({
   },
 });
 
-export const selectUser = (state: LoginState) => state.user;
-export const selectIsLoggedIn = (state: LoginState) => state.isLoggedIn;
-export const selectToken = (state: LoginState) => state.token;
+export const selectUser = (state: { login: LoginState }) => state.login.user;
+export const selectIsLoggedIn = (state: { login: LoginState }) =>
+  state.login.isLoggedIn;
+export const selectToken = (state: { login: LoginState }) => state.login.token;
 
 export const { setUserDetails, logout } = loginSlice.actions;
 export default loginSlice.reducer;
