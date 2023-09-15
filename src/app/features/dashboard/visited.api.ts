@@ -6,7 +6,7 @@ export const visitedEmployeeApiSlice = apiSlice.injectEndpoints({
     partnerMappedData: builder.query({
       query: () => ({
         url: '/emp/partner/mapping',
-        method: 'GET',
+        method: 'GET',  
       }),
     }),
   }),

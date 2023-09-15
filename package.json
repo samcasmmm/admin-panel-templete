@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "author": {
-    "name": "Sameer Bagwan",
-    "email": "sameerbagwanwork@gmail.com",
-    "url": "https://sameerbagwan.netlify.app"
+    "name": "TailAdmin",
+    "email": "hello@tailadmin.com",
+    "url": "https://tailadmin.com"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
