@@ -1,4 +1,5 @@
 import { apiSlice } from '../../apiSlice';
+import Cookies from 'js-cookie'
 
 export const visitedEmployeeApiSlice = apiSlice.injectEndpoints({
   overrideExisting: true,
@@ -7,6 +8,9 @@ export const visitedEmployeeApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: '/emp/partner/mapping',
         method: 'GET',
+        headers: { 
+          Authorization: 'Bearer ' + Cookies.get('bearer_token')
+        }
       }),
     }),
   }),
