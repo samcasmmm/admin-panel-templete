@@ -3,6 +3,7 @@ import Breadcrumb from '../../components/Breadcrumb';
 import LeadCard from '../../components/LeadCard';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useAllLeadsQuery } from '../../app/features/leads/leads.api';
 
 interface Lead {
   name: string;
@@ -14,28 +15,18 @@ interface Lead {
 }
 
 const AllLeads = () => {
-  const [leadsData, setLeadsData] = useState([]);
-  const [pageNo, setPageNo] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  let LEADS_URL = `/v2/admin/get/leads?type=&property_id=&employee_id=&start_date=&end_date=&source=&bhk_type_id&keyword=&pageNo=${pageNo}&pageSize=20&sortBy=id&sortDir=desc`;
-
-  let lead_url1 = `/v2/admin/get/leads?type=all&pageNo=${pageNo}&pageSize=100`;
-
+  const {
+    data: leadsData,
+    isLoading,
+    isFetching,
+  } = useAllLeadsQuery({ pageNo: 1, pageSize: 100 });
+  console.log(leadsData, isLoading, isFetching);
 
   return (
     <>
       <Breadcrumb altPageName="Manage Leads" pageName="All Leads" />
       <div className="">
-        <button
-          onClick={() => {
-            setPageNo(pageNo + 1);
-          }}
-        >
-          click
-        </button>
-        {leadsData.length > 0 ? (
+        {leadsData?.length > 0 ? (
           leadsData?.map((lead: Lead, index: number) => (
             <LeadCard
               name={lead.name}
