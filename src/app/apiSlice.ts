@@ -1,17 +1,27 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
-const authorizationHeader = Cookies.get('bearer_token') ? `Bearer ${Cookies.get('bearer_token')}` : '';
+const authorizationHeader = Cookies.get('bearer_token')
+  ? `Bearer ${Cookies.get('bearer_token')}`
+  : '';
+
+const JSESSIONIDHeader = Cookies.get('JSESSIONID')
+  ? `${Cookies.get('JSESSIONID')}`
+  : '';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/v2',
-  headers:{
-    Authorization: authorizationHeader
-  }
+  headers: {
+    Authorization: authorizationHeader,
+    Cookies: JSESSIONIDHeader,
+    xhrFields: {
+      withCredentials: true,
+    },
+  },
 });
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ['login', 'visited'],
+  tagTypes: ['login', 'visited', 'leads'],
   endpoints: () => ({}),
 });

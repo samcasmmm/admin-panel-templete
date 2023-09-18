@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
 import LeadCard from '../../components/LeadCard';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useAllLeadsQuery } from '../../app/features/leads/leads.api';
 
 interface Lead {
