@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import ManageUser from '../pages/manageUsers/ManageUser';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -34,6 +35,11 @@ const coreRoutes = [
     path: '/profile',
     title: 'Profile',
     component: Profile,
+  },
+  {
+    path: '/manage-users',
+    title: 'Manage Users',
+    component: ManageUser,
   },
   {
     path: '/forms/form-elements',
