@@ -11,12 +11,10 @@ const JSESSIONIDHeader = Cookies.get('JSESSIONID')
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/v2',
+  mode: 'cors',
   headers: {
     Authorization: authorizationHeader,
     Cookies: JSESSIONIDHeader,
-    xhrFields: {
-      withCredentials: true,
-    },
   },
 });
 
