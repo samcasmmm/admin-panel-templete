@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { apiSlice } from '../../../apiSlice';
 
 export const loginApiSlice = apiSlice.injectEndpoints({
@@ -9,6 +10,14 @@ export const loginApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      transformErrorResponse(baseQueryReturnValue: any, meta, arg) {
+        // console.log(baseQueryReturnValue?.originalStatus);
+        console.log(baseQueryReturnValue);
+        if (baseQueryReturnValue?.originalStatus === 503) {
+          toast.error('Try Again');
+          console.log(baseQueryReturnValue?.originalStatus);
+        }
+      },
     }),
     verifyOTP: builder.mutation({
       query: (data) => ({
