@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -109,9 +109,14 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdar ">
-        <div className="flex flex-wrap items-center justify-center h-screen">
-          <div className="w-screen border-stroke dark:border-strokedark xl:w-1/2 xl:border-2 rounded-lg">
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        containerClassName="overflow-auto"
+      />
+      <div className="dark:bg-boxdar rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark ">
+        <div className="flex h-screen flex-wrap items-center justify-center">
+          <div className="w-screen rounded-lg border-stroke dark:border-strokedark xl:w-1/2 xl:border-2">
             <div className="p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium">Start for free</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
