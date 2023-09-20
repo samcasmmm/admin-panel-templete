@@ -1,13 +1,13 @@
 import Breadcrumb from '../../components/Breadcrumb';
 import InputElement from '../../components/InputElement';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
 
 const ManageUser = () => {
   const [inputData, setInputData] = useState({
     empName: '',
     empEmail: '',
-    empNumber: '',
+    empNumber: '9823826356',
     empOTP: '',
     empUserType: '',
     empPermissions: '',
@@ -21,6 +21,10 @@ const ManageUser = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleClick = () => {
+    console.log('click');
   };
 
   return (
@@ -51,7 +55,7 @@ const ManageUser = () => {
             value={inputData.empEmail}
             onChange={(e) => handleChange(e)}
           />
-          <ButtonElement label="Send OTP" />
+          <ButtonElement label="Send OTP" onClick={handleClick} />
         </div>
       </div>
     </>
