@@ -5,10 +5,18 @@ type Props = {
   name?: string;
   value?: string;
   type?: string;
+  disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const InputElement = ({ label, name, value, type, onChange }: Props) => {
+const InputElement = ({
+  label,
+  name,
+  value,
+  type,
+  disabled,
+  onChange,
+}: Props) => {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
@@ -32,6 +40,7 @@ const InputElement = ({ label, name, value, type, onChange }: Props) => {
         type={type || 'text'}
         name={name}
         value={value}
+        disabled={disabled || false}
         onFocus={() => {
           setFocused(false);
         }}
@@ -40,7 +49,7 @@ const InputElement = ({ label, name, value, type, onChange }: Props) => {
             setFocused(true);
           }
         }}
-        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-4 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-4 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary disabled:dark:bg-slate-900"
       />
     </div>
   );

@@ -1,19 +1,20 @@
 import Breadcrumb from '../../components/Breadcrumb';
 import InputElement from '../../components/InputElement';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
 
 const ManageUser = () => {
   const [inputData, setInputData] = useState({
     empName: '',
     empEmail: '',
-    empNumber: '',
+    empNumber: '9823826356',
     empOTP: '',
     empUserType: '',
     empPermissions: '',
     empProperty: '',
     empReportingManager: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,6 +22,14 @@ const ManageUser = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleClick = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log('click');
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
@@ -51,7 +60,11 @@ const ManageUser = () => {
             value={inputData.empEmail}
             onChange={(e) => handleChange(e)}
           />
-          <ButtonElement label="Send OTP" />
+          <ButtonElement
+            label="Send OTP"
+            onClick={handleClick}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </>

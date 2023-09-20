@@ -113,7 +113,7 @@ const DropDown: React.FC<IDropdown> = ({ label, data, isFetching }) => {
 
   const renderData = () => {
     if (isFetching) {
-      return <SmallLoader />;
+      return <SmallLoader color="border-primary" />;
     } else if (data && data.length > 0) {
       return data.map((item, index) => <MeetingItem key={index} item={item} />);
     } else {
@@ -122,15 +122,15 @@ const DropDown: React.FC<IDropdown> = ({ label, data, isFetching }) => {
   };
 
   return (
-    <div className="w-full my-4 cursor-pointer">
-      <div className="w-full flex items-center gap-2" onClick={toggleOpen}>
+    <div className="my-4 w-full cursor-pointer">
+      <div className="flex w-full items-center gap-2" onClick={toggleOpen}>
         <FaAngleDown />
         <p className="font-bold">{label} Meeting</p>
       </div>
       <div
         className={`w-full bg-white dark:bg-boxdark ${
-          open ? 'h-auto' : 'h-0 hidden'
-        } overflow-hidden transition duration-300 ease-in-out p-4 mt-2 rounded-md flex flex-col gap-2`}
+          open ? 'h-auto' : 'hidden h-0'
+        } mt-2 flex flex-col gap-2 overflow-hidden rounded-md p-4 transition duration-300 ease-in-out`}
       >
         {renderData()}
       </div>
@@ -139,12 +139,12 @@ const DropDown: React.FC<IDropdown> = ({ label, data, isFetching }) => {
 };
 
 const MeetingItem: React.FC<{ item: any }> = ({ item }) => (
-  <div className="flex items-start sm:items-center sm:justify-between flex-col sm:flex-row gap-4 mt-2">
+  <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
     <p className="">
       Meeting has successfully done between{' '}
       <span className="font-bold  dark:text-white">{item.empName}</span> and
       Channel partner{' '}
-      <span className="font-bold text-rose-400 hover:text-rose-600 transition ease-in-out duration-300 ml-2 cursor-pointer">
+      <span className="ml-2 cursor-pointer font-bold text-rose-400 transition duration-300 ease-in-out hover:text-rose-600">
         {item.partnerName || 'Confidential'}
       </span>
     </p>
@@ -157,10 +157,10 @@ const MeetingItem: React.FC<{ item: any }> = ({ item }) => (
 
 const DataNoAvailable = () => {
   return (
-    <div className="flex items-start sm:items-center sm:justify-between flex-col sm:flex-row gap-4 mt-2">
+    <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
       <p className="">
         No Meeting data available
-        <span className="font-bold text-rose-600 ml-2 cursor-pointer"></span>
+        <span className="ml-2 cursor-pointer font-bold text-rose-600"></span>
       </p>
       <p className="flex flex-row items-center justify-center gap-2">
         <SlCalender />
