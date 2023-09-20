@@ -1,4 +1,3 @@
-import React from 'react';
 import SmallLoader from '../common/SmallLoader';
 
 type Props = {
