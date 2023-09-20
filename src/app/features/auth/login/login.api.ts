@@ -10,6 +10,9 @@ export const loginApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      transformResponse(baseQueryReturnValue: any, meta, arg) {
+        toast.success('OTP sent');
+      },
       transformErrorResponse(baseQueryReturnValue: any, meta, arg) {
         // console.log(baseQueryReturnValue?.originalStatus);
         console.log(baseQueryReturnValue);

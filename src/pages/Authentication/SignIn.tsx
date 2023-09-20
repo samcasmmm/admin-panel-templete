@@ -60,15 +60,11 @@ const SignIn = () => {
 
   const sendOTP = async () => {
     await sendOTPMutation({ phone: userInputData.username })
-      .then((res: SendOTPMutationResponse) => {
-        if (res.data?.status === 200) {
-          toast.success('OTP sent');
-          setShowOTPInput(true);
-        }
+      .then(() => {
+        setShowOTPInput(true);
       })
-      .catch((error: SendOTPMutationResponse) => {
-        toast.error('OTP not sent');
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
