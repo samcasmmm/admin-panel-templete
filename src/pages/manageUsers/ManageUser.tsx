@@ -14,6 +14,7 @@ const ManageUser = () => {
     empProperty: '',
     empReportingManager: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,7 +25,11 @@ const ManageUser = () => {
   };
 
   const handleClick = () => {
-    console.log('click');
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log('click');
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
@@ -55,7 +60,11 @@ const ManageUser = () => {
             value={inputData.empEmail}
             onChange={(e) => handleChange(e)}
           />
-          <ButtonElement label="Send OTP" onClick={handleClick} />
+          <ButtonElement
+            label="Send OTP"
+            onClick={handleClick}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </>
