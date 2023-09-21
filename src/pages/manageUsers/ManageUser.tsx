@@ -96,14 +96,14 @@ const ManageUser = () => {
             isLoading={isLoading}
           />
         </div>
-        <div className="w-full bg-white dark:bg-black">
+        <div className="mt-8 w-full bg-white dark:bg-black">
           <table className="w-full table-auto">
             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Reporting Manager</th>
+              <tr className="border bg-blue-300">
+                <th className="py-4">Name</th>
+                <th className="py-4">Email</th>
+                <th className="py-4">Phone</th>
+                <th className="py-4">Reporting Manager</th>
               </tr>
             </thead>
             <tbody>
