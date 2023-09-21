@@ -53,12 +53,12 @@ const ManageUser = () => {
   const UserCard: React.FC<UserCardProps> = ({ user }) => {
     const { name, email, phone, reportingManager } = user;
     return (
-      <tr className="m-2">
-        <td className="text-center">{name || 'null'}</td>
-        <td className="text-center">{email || 'null'}</td>
-        <td className="text-center">{phone || 'null'}</td>
-        <td className="text-center">{reportingManager || 'null'}</td>
-      </tr>
+      <>
+        <td className="m-3 py-2 text-center">{name || 'null'}</td>
+        <td className="m-3 py-2 text-center">{email || 'null'}</td>
+        <td className="m-3 py-2 text-center ">{phone || 'null'}</td>
+        <td className="m-3 py-2 text-center">{reportingManager || 'null'}</td>
+      </>
     );
   };
 
@@ -97,7 +97,7 @@ const ManageUser = () => {
           />
         </div>
         <div className="w-full bg-white dark:bg-black">
-          <table className="w-full">
+          <table className="w-full table-auto">
             <thead>
               <tr>
                 <th>Name</th>
@@ -108,7 +108,14 @@ const ManageUser = () => {
             </thead>
             <tbody>
               {ListOfUsers?.data?.map((user: User, index: number) => (
-                <UserCard user={user} key={user.id} />
+                <tr
+                  key={user.id}
+                  className={
+                    index % 2 === 0 ? 'bg-slate-200 dark:bg-slate-900' : ''
+                  }
+                >
+                  <UserCard user={user} />
+                </tr>
               ))}
             </tbody>
           </table>
