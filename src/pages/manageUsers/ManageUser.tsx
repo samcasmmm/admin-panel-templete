@@ -2,6 +2,20 @@ import Breadcrumb from '../../components/Breadcrumb';
 import InputElement from '../../components/InputElement';
 import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
+import { useGetListOfUsersQuery } from '../../app/features/manageUser/users.api';
+
+// Define a TypeScript interface for the UserCard props
+interface UserCardProps {
+  user: User;
+}
+
+type User = {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  reportingManager: string;
+};
 
 const ManageUser = () => {
   const [inputData, setInputData] = useState({
@@ -15,6 +29,9 @@ const ManageUser = () => {
     empReportingManager: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const { data: ListOfUsers, isError } = useGetListOfUsersQuery({
+    purpose: 'show',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,6 +49,19 @@ const ManageUser = () => {
     }, 3000);
   };
 
+  // Define UserCard as a separate component
+  const UserCard: React.FC<UserCardProps> = ({ user }) => {
+    const { name, email, phone, reportingManager } = user;
+    return (
+      <tr className="m-2">
+        <td className="text-center">{name || 'null'}</td>
+        <td className="text-center">{email || 'null'}</td>
+        <td className="text-center">{phone || 'null'}</td>
+        <td className="text-center">{reportingManager || 'null'}</td>
+      </tr>
+    );
+  };
+
   return (
     <>
       <Breadcrumb pageName="ManageUser" altPageName="Manage User" />
@@ -44,27 +74,44 @@ const ManageUser = () => {
             type="text"
             name="empName"
             value={inputData.empName}
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <InputElement
             label="Email"
             name="empEmail"
             type="email"
             value={inputData.empEmail}
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <InputElement
             label="Number"
             name="empNumber"
             type="number"
-            value={inputData.empEmail}
-            onChange={(e) => handleChange(e)}
+            value={inputData.empNumber}
+            onChange={handleChange}
           />
           <ButtonElement
             label="Send OTP"
             onClick={handleClick}
             isLoading={isLoading}
           />
+        </div>
+        <div className="w-full bg-white dark:bg-black">
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Reporting Manager</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ListOfUsers?.data?.map((user: User, index: number) => (
+                <UserCard user={user} key={user.id} />
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>
