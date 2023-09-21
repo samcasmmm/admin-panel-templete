@@ -75,6 +75,7 @@ const SignIn = () => {
     })
       .then(async (res: SendOTPMutationResponse) => {
         if (res.data?.status === 200) {
+          console.log(res.data);
           toast.success('OTP Verified');
           dispatch(
             setUserDetails({

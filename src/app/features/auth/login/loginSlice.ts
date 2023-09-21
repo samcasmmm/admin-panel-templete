@@ -13,7 +13,7 @@ const parsedUserDetail = userDetailFromLocalStorage
 const parsedIsLoggedIn = isLoggedInFromCookie
   ? JSON.parse(isLoggedInFromCookie)
   : null;
-const parsedToken = tokenFromCookie ? JSON.parse(tokenFromCookie) : null;
+const parsedToken = tokenFromCookie ? tokenFromCookie : null;
 
 const initialState: LoginState = {
   user: parsedUserDetail,
@@ -33,9 +33,7 @@ const loginSlice = createSlice({
 
       localStorage.setItem('userDetail', JSON.stringify(action.payload.user));
       Cookies.set('isLoggedIn', JSON.stringify(action.payload.isloggedIn));
-      Cookies.set('token', JSON.stringify(action.payload.token), {
-        expires: 2,
-      });
+      Cookies.set('token', action.payload.token);
     },
     logout: (state) => {
       state.user = null;
