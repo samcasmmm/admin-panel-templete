@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../app/features/auth/login/loginSlice';
-
+import { selectUser } from '../app/features/auth/login/loginSlice';
 import UserOne from '../images/user/user-01.png';
 
 const DropdownUser = () => {
@@ -13,6 +13,7 @@ const DropdownUser = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   // close on click outside
   useEffect(() => {
@@ -55,9 +56,11 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {user?.name || 'null'}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">
+            {user?.role.toLocaleLowerCase() || 'null'}
+          </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -119,7 +122,7 @@ const DropdownUser = () => {
           </li>
         </ul>
         <button
-          className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
           onClick={handleLogout}
         >
           Log Out
