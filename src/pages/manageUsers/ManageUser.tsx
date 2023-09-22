@@ -3,7 +3,7 @@ import InputElement from '../../components/InputElement';
 import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
 import { useGetListOfUsersQuery } from '../../app/features/manageUser/users.api';
-
+import { MdModeEditOutline } from 'react-icons/md';
 // Define a TypeScript interface for the UserCard props
 interface UserCardProps {
   user: User;
@@ -54,10 +54,10 @@ const ManageUser = () => {
     const { name, email, phone, reportingManager } = user;
     return (
       <>
-        <td className="m-3 py-2 text-center">{name || 'null'}</td>
-        <td className="m-3 py-2 text-center">{email || 'null'}</td>
-        <td className="m-3 py-2 text-center ">{phone || 'null'}</td>
-        <td className="m-3 py-2 text-center">{reportingManager || 'null'}</td>
+        <td className="text-left">{name || 'null'}</td>
+        <td className="text-left">{email || 'null'}</td>
+        <td className="text-left ">{phone || 'null'}</td>
+        <td className="text-left">{reportingManager || 'null'}</td>
       </>
     );
   };
@@ -96,30 +96,53 @@ const ManageUser = () => {
             isLoading={isLoading}
           />
         </div>
-        <div className="mt-8 w-full bg-white dark:bg-black">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="border bg-blue-300">
-                <th className="py-4">Name</th>
-                <th className="py-4">Email</th>
-                <th className="py-4">Phone</th>
-                <th className="py-4">Reporting Manager</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ListOfUsers?.data?.map((user: User, index: number) => (
-                <tr
-                  key={user.id}
-                  className={
-                    index % 2 === 0 ? 'bg-slate-200 dark:bg-slate-900' : ''
-                  }
+      </div>
+      <div className="relative mt-3 overflow-x-auto rounded bg-white dark:bg-black">
+        <p className="py-5 pl-6 font-bold">List Of Users</p>
+        <table className="text-gray-500 dark:text-gray-400 w-full text-left text-sm">
+          <thead className="text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b text-xs uppercase">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Reporting Manager
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Phone
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {ListOfUsers?.data?.map((user: User) => (
+              <tr
+                className="dark:bg-gray-800 dark:border-gray-700 bg-white dark:bg-slate-950"
+                key={user.id}
+              >
+                <th
+                  scope="row"
+                  className="text-gray-900 whitespace-nowrap px-6 py-4 font-medium dark:text-white"
                 >
-                  <UserCard user={user} />
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  {user.name}
+                </th>
+                <td className="px-6 py-4">{user.reportingManager}</td>
+                <td className="px-6 py-4">{user.phone}</td>
+                <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">
+                  <span>
+                    <MdModeEditOutline />
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

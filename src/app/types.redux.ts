@@ -1,4 +1,7 @@
-export interface User {}
+export interface User {
+  name: string;
+  role: string;
+}
 
 export interface LoginState {
   user: User | null;
