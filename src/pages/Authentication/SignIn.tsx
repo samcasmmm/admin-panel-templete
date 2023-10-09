@@ -40,8 +40,9 @@ const SignIn = () => {
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const [sendOTPMutation] = useSendOTPMutation();
-  const [verifyOTPMutation] = useVerifyOTPMutation();
+  const [sendOTPMutation, { isLoading: sendLoading }] = useSendOTPMutation();
+  const [verifyOTPMutation, { isLoading: verifyLoading }] =
+    useVerifyOTPMutation();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -200,7 +201,8 @@ const SignIn = () => {
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                     onClick={(e) => handleSubmit(e)}
                   >
-                    {showOTPInput ? 'Sign Up' : 'Send OTP'}
+                    {/* {   {showOTPInput ? 'Sign Up' : 'Send OTP'}} */}
+                    {}
                   </button>
                 </div>
                 <div className="mt-6 text-center">
