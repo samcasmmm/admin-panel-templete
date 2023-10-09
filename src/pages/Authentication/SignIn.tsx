@@ -12,7 +12,6 @@ import {
   setUserDetails,
   selectIsLoggedIn,
 } from '../../app/features/auth/login/loginSlice';
-import SmallLoader from '../../common/SmallLoader';
 
 interface IOTPInput {
   username: string;
@@ -199,21 +198,11 @@ const SignIn = () => {
                 <div className="mb-5">
                   <button
                     type="button"
-                    className="flex w-full cursor-pointer items-center justify-center rounded-lg border border-primary bg-primary p-4 text-center text-white transition hover:bg-opacity-90"
+                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                     onClick={(e) => handleSubmit(e)}
                   >
                     {/* {   {showOTPInput ? 'Sign Up' : 'Send OTP'}} */}
-                    {showOTPInput ? (
-                      sendLoading ? (
-                        <SmallLoader color="border-white" />
-                      ) : (
-                        'Send OTP'
-                      )
-                    ) : verifyLoading ? (
-                      <SmallLoader color="border-white" />
-                    ) : (
-                      'Send OTP'
-                    )}
+                    {}
                   </button>
                 </div>
                 <div className="mt-6 text-center">
