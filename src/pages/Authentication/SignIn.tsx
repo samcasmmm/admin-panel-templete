@@ -40,9 +40,8 @@ const SignIn = () => {
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const [sendOTPMutation, { isLoading: sendLoading }] = useSendOTPMutation();
-  const [verifyOTPMutation, { isLoading: verifyLoading }] =
-    useVerifyOTPMutation();
+  const [sendOTPMutation] = useSendOTPMutation();
+  const [verifyOTPMutation] = useVerifyOTPMutation();
 
   useEffect(() => {
     if (isLoggedIn) {
