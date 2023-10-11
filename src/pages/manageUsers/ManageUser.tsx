@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
 import { useGetListOfUsersQuery } from '../../app/features/manageUser/users.api';
 import { MdModeEditOutline } from 'react-icons/md';
+import SelectDropdown from '../../components/SelectDropdown';
 // Define a TypeScript interface for the UserCard props
 interface UserCardProps {
   user: User;
@@ -102,6 +103,14 @@ const ManageUser = () => {
             value={inputData.userOTP}
             onChange={handleChange}
           />
+          <InputElement
+            label="User Type"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
+          />
+          <SelectDropdown />
         </div>
       </div>
       <div className="relative mt-3 overflow-x-auto rounded bg-white dark:bg-black">
