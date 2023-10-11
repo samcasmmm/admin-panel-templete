@@ -2,8 +2,14 @@ import Breadcrumb from '../../components/Breadcrumb';
 import InputElement from '../../components/InputElement';
 import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
-import { useGetListOfUsersQuery } from '../../app/features/manageUser/users.api';
+import {
+  useGetListOfUsersQuery,
+  usePropertyForLoginUserQuery,
+} from '../../app/features/manageUser/users.api';
 import { MdModeEditOutline } from 'react-icons/md';
+import SelectDropdown from '../../components/SelectDropdown';
+import { useEffect } from 'react';
+import { listenerCancelled } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptions';
 // Define a TypeScript interface for the UserCard props
 interface UserCardProps {
   user: User;
@@ -19,19 +25,20 @@ type User = {
 
 const ManageUser = () => {
   const [inputData, setInputData] = useState({
-    empName: '',
-    empEmail: '',
-    empNumber: '9823826356',
-    empOTP: '',
-    empUserType: '',
-    empPermissions: '',
-    empProperty: '',
-    empReportingManager: '',
+    userName: '',
+    userEmail: '',
+    userNumber: '9823826356',
+    userOTP: '',
+    userUserType: '',
+    userPermissions: '',
+    userProperty: '',
+    userReportingManager: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const { data: ListOfUsers, isError } = useGetListOfUsersQuery({
     purpose: 'show',
   });
+  const { data: ListOfProperties } = usePropertyForLoginUserQuery({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,28 +79,50 @@ const ManageUser = () => {
           <InputElement
             label="Name"
             type="text"
-            name="empName"
-            value={inputData.empName}
+            name="userName"
+            value={inputData.userName}
             onChange={handleChange}
           />
           <InputElement
             label="Email"
-            name="empEmail"
+            name="userEmail"
             type="email"
-            value={inputData.empEmail}
+            value={inputData.userEmail}
             onChange={handleChange}
           />
           <InputElement
             label="Number"
-            name="empNumber"
+            name="userNumber"
             type="number"
-            value={inputData.empNumber}
+            value={inputData.userNumber}
             onChange={handleChange}
           />
           <ButtonElement
             label="Send OTP"
             onClick={handleClick}
             isLoading={isLoading}
+          />
+          <InputElement
+            label="Enter OTP"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
+          />
+          <InputElement
+            label="User Type"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
+          />
+          <SelectDropdown
+            label="Property"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
+            data={ListOfProperties?.data}
           />
         </div>
       </div>
