@@ -2,9 +2,14 @@ import Breadcrumb from '../../components/Breadcrumb';
 import InputElement from '../../components/InputElement';
 import { useState } from 'react';
 import ButtonElement from './../../components/ButtonElement';
-import { useGetListOfUsersQuery } from '../../app/features/manageUser/users.api';
+import {
+  useGetListOfUsersQuery,
+  usePropertyForLoginUserQuery,
+} from '../../app/features/manageUser/users.api';
 import { MdModeEditOutline } from 'react-icons/md';
 import SelectDropdown from '../../components/SelectDropdown';
+import { useEffect } from 'react';
+import { listenerCancelled } from '@reduxjs/toolkit/dist/listenerMiddleware/exceptions';
 // Define a TypeScript interface for the UserCard props
 interface UserCardProps {
   user: User;
@@ -33,6 +38,7 @@ const ManageUser = () => {
   const { data: ListOfUsers, isError } = useGetListOfUsersQuery({
     purpose: 'show',
   });
+  const { data: ListOfProperties } = usePropertyForLoginUserQuery({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -110,7 +116,14 @@ const ManageUser = () => {
             value={inputData.userOTP}
             onChange={handleChange}
           />
-          <SelectDropdown />
+          <SelectDropdown
+            label="Property"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
+            data={ListOfProperties?.data}
+          />
         </div>
       </div>
       <div className="relative mt-3 overflow-x-auto rounded bg-white dark:bg-black">
