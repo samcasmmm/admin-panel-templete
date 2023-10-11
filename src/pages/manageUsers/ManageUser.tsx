@@ -19,14 +19,14 @@ type User = {
 
 const ManageUser = () => {
   const [inputData, setInputData] = useState({
-    empName: '',
-    empEmail: '',
-    empNumber: '9823826356',
-    empOTP: '',
-    empUserType: '',
-    empPermissions: '',
-    empProperty: '',
-    empReportingManager: '',
+    userName: '',
+    userEmail: '',
+    userNumber: '9823826356',
+    userOTP: '',
+    userUserType: '',
+    userPermissions: '',
+    userProperty: '',
+    userReportingManager: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const { data: ListOfUsers, isError } = useGetListOfUsersQuery({
@@ -72,28 +72,35 @@ const ManageUser = () => {
           <InputElement
             label="Name"
             type="text"
-            name="empName"
-            value={inputData.empName}
+            name="userName"
+            value={inputData.userName}
             onChange={handleChange}
           />
           <InputElement
             label="Email"
-            name="empEmail"
+            name="userEmail"
             type="email"
-            value={inputData.empEmail}
+            value={inputData.userEmail}
             onChange={handleChange}
           />
           <InputElement
             label="Number"
-            name="empNumber"
+            name="userNumber"
             type="number"
-            value={inputData.empNumber}
+            value={inputData.userNumber}
             onChange={handleChange}
           />
           <ButtonElement
             label="Send OTP"
             onClick={handleClick}
             isLoading={isLoading}
+          />
+          <InputElement
+            label="Enter OTP"
+            name="userOTP"
+            type="number"
+            value={inputData.userOTP}
+            onChange={handleChange}
           />
         </div>
       </div>
